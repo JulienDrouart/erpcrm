@@ -1,0 +1,65 @@
+# BEGIN Protection git
+RedirectMatch 404 "/\.git$"
+RedirectMatch 404 "/\.git/"
+RedirectMatch 404 "/\.gitignore$"
+RedirectMatch 404 "/\.gitmodules$"
+# END Protection git
+
+Options -Indexes
+
+<IfModule mod_deflate.c>
+    # Active la compression pour les types de contenu courants
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml application/rss+xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-font-opentype image/svg+xml
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+<IfModule mod_headers.c>
+    # Ajoute les encodages acceptés dans les en-têtes de réponse
+    Header append Vary Accept-Encoding
+</IfModule>
+
+<IfModule mod_expires.c>
+    # Active le module Expires pour gérer la mise en cache
+    ExpiresActive On
+
+    # Définit les durées de cache par type de contenu
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresByType application/x-font-ttf "access plus 1 year"
+    ExpiresByType font/opentype "access plus 1 year"
+
+    ExpiresByType text/html "access plus 1 hour"
+    ExpiresByType application/json "access plus 0 seconds"
+    ExpiresByType application/xml "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Ajoute des en-têtes pour la mise en cache
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif|svg|webp|js|css|woff|woff2|ttf|otf)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+
+    <FilesMatch "\.(html|htm|xml|json)$">
+        Header set Cache-Control "max-age=3600, public, must-revalidate"
+    </FilesMatch>
+</IfModule>
