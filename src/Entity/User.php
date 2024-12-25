@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -42,6 +44,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $type = null;
+
+    #[ORM\Column]
+    private ?int $status = null;
+
+    #[ORM\Column]
+    private ?bool $sex = null;
+
+    #[ORM\Column]
+    private ?bool $employee = null;
+
 
     public function getId(): ?int
     {
@@ -162,6 +174,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setType(int $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function isSex(): ?bool
+    {
+        return $this->sex;
+    }
+
+    public function setSex(bool $sex): static
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    public function isEmployee(): ?bool
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(bool $employee): static
+    {
+        $this->employee = $employee;
 
         return $this;
     }
