@@ -44,7 +44,7 @@ security:
         - { path: ^/(_(profiler|wdt))/, roles: PUBLIC_ACCESS }
 
         # Limiter l'accès au reste du site aux administrateurs
-        - { path: '^/', roles: ROLE_ADMIN }
+        - { path: '^/', roles: ROLE_USER }
 
 when@test:
     security:

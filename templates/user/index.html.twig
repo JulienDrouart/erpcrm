@@ -26,28 +26,26 @@
         {% for user in users %}
             <tr>
             <td>{{ user.id }}</td>
-            <td>{{ user.email }} {% if 'ROLE_ADMIN' in user.roles %}<i class="fas fa-star" style="color:#d1b000;"></i>{% endif %}</td>
+            <td>
+                <a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.email }}</a>
+                {% if 'ROLE_ADMIN' in user.roles %}
+                    <i class="fas fa-star" style="color:#d1b000;"></i>
+                {% endif %}
+            </td>
             <td>{{ user.firstName|capitalize }}</td>
             <td>{{ user.name|capitalize }}</td>
             <td>{{ user.phone }}</td>
             <td>{{ user.type }}</td>
-            <td>{{ user.status }}</td>
+            <td><span class="badge text-bg-{{ user.status == 0  ? 'danger' : 'success'}}"> {{ user.status == 0  ? 'Désactivé' : 'Activé'}}</span></td>
             <td>{{ user.sex == 0 ? 'H' : 'F' }}</td>
             <td>{{ user.employee ? 'Oui' : 'Non' }}</td>
             <td>{{ user.permissions }}</td>
-            <td>{{ user.lastConnection ? user.lastConnection|date('Y-m-d H:i:s') : 'N/A' }}</td>
+            <td>{{ user.lastConnection ? user.lastConnection|date('d/m/Y H:i:s') : 'N/A' }}</td>
             <td>
-                <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
             </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
 {% endblock %}

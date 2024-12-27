@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Service\User as UserService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,16 @@ use Symfony\Component\Routing\Attribute\Route;
 final class UserController extends AbstractController
 {
 
+    public function __construct(
+        private UserService $userService,
+    ) {
+    }
+
     #[Route(name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/_home.html.twig', [
+            'user' => $this->getUser(),
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -26,6 +33,11 @@ final class UserController extends AbstractController
     #[Route('/list', name: 'app_user_list', methods: ['GET'])]
     public function list(UserRepository $userRepository): Response
     {
+        if($this->userService->isAllowedToGo($this->getUser(),"USER_CONSULT") == false)
+        {
+            return $this->redirectToRoute('app_index');
+        }
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -94,5 +106,39 @@ final class UserController extends AbstractController
         
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/permissions', name: 'app_user_permissions', methods: ['GET', 'POST'])]
+    public function permission(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        
+        $permissions = $this->userService->getPermissionsList($user);
+        
+        if ($request->isMethod('POST')) {
+            $userpermission = explode(";",$user->getPermissions());
+            if($request->getPayload()->getString('checked') == "true")
+            {
+                $userpermission[] = $request->getPayload()->getString('permission');
+            }else{
+                $permissionToRemove = $request->getPayload()->getString('permission');
+                $userpermission = array_filter($userpermission, fn($permission) => $permission !== $permissionToRemove);
+            }
+
+            foreach($userpermission as $key => $permission)
+            {
+                if($permission == "")
+                {
+                    unset($userpermission[$key]);
+                }
+            }
+            $user->setPermissions(implode(";",$userpermission));
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+
+        return $this->render('user/permission.html.twig', [
+            'user' => $user,
+            'permissions' => $permissions
+        ]);
     }
 }

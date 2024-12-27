@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    {{ include('user/_header_user.html.twig') }}
+
+    {% if "ROLE_ADMIN" in user.roles %}
+        <div class="alert alert-warning" role="alert">
+            Vous ne pouvez pas modifier les permissions car l'utilisateur a le rôle administrateur.
+        </div>
+    {% endif %}
+    <table class="table">
+        <tbody>
+            {% for keyPermission, permissionList in permissions %}
+                <tr>
+                    <td colspan="2">Gestion {{ keyPermission }}</td>
+                <tr>
+                {% for permission in permissionList %}
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" {% if "ROLE_ADMIN" in user.roles %} disabled {% endif %} type="checkbox" role="switch" id="field_{{ permission.slug }}" {% if permission.slug in user.permissions or "ROLE_ADMIN" in user.roles %}checked{% endif %}>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">{{ permission.label }}</label>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.form-check-input').on('click', function() {
+                let permission = $(this).attr('id').replace('field_', '');
+                let checked = $(this).prop('checked');
+                let userId = {{ user.id }};
+                $.ajax({
+                    url: "{{ path('app_user_permissions', { 'id': user.id }) }}",
+                    type: 'POST',
+                    data: {
+                        permission: permission,
+                        checked: checked
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        alert("Une erreur est survenue");
+                    }
+                });
+            });
+        });
+        
+    </script>
+{% endblock %}

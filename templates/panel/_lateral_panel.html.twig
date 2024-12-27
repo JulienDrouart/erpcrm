@@ -31,24 +31,30 @@
     </a>
     {% if app.request.uri matches "/user/" %}
         <ul class="nav flex-column ms-3">
-            <li class="nav-item">
-                <a href="{{ path('app_user_list') }}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person"></use></svg>
-                    Liste des utilisateurs
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('app_user_new') }}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
-                    Ajouter un utilisateur
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('app_user_hierarchical_view') }}" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
-                    Vue hiérarchique
-                </a>
-            </li>
+            {% if 'USER_CONSULT' in app.user.permissions %}
+                <li class="nav-item">
+                    <a href="{{ path('app_user_list') }}" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person"></use></svg>
+                        Liste des utilisateurs
+                    </a>
+                </li>
+            {% endif %}
+            {% if 'USER_CREATE_UPDATE' in app.user.permissions %}
+                <li class="nav-item">
+                    <a href="{{ path('app_user_new') }}" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                        Ajouter un utilisateur
+                    </a>
+                </li>
+            {% endif %}
+            {% if 'USER_CONSULT' in app.user.permissions %}
+                <li class="nav-item">
+                    <a href="{{ path('app_user_hierarchical_view') }}" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                        Vue hiérarchique
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     {% endif %}
 </li>
