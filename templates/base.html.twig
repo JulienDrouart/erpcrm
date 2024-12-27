@@ -15,70 +15,72 @@
     </head>
     <body>
         <div class="container-fluid px-0">
-            <header class="d-flex justify-content-center py-3 text-bg-dark" style="padding-top: 5px !important; padding-bottom: 5px !important;">
+            <header class="d-flex justify-content-center py-3 text-bg-dark fixed-top w-100" style="padding-top: 5px !important; padding-bottom: 5px !important; z-index: 1030;">
             <ul class="nav nav-pills">
-                        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-4">ERPCRM</span>
             </a>
-                <li class="nav-item me-3">
-                    <a href="#" class="nav-link active d-flex flex-column align-items-center" aria-current="page">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Accueil</span>
-                    </a>
-                </li>
-                <li class="nav-item me-3">
-                    <a href="#" class="nav-link d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-users"></i>
-                        <span>Tiers</span>
-                    </a>
-                </li>
-                <li class="nav-item me-3">
-                    <a href="#" class="nav-link d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-cogs"></i>
-                        <span>Services</span>
-                    </a>
-                </li>
-                <li class="nav-item me-3">
-                    <a href="#" class="nav-link d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-store"></i>
-                        <span>Commerce</span>
-                    </a>
-                </li>
-                <li class="nav-item me-3">
-                    <a href="#" class="nav-link d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
-                        <span>Facturation</span>
-                    </a>
-                </li>
-                <li class="nav-item me-3">
-                    <a href="#" class="nav-link d-flex flex-column align-items-center">
-                        <i class="fa-solid fa-tools"></i>
-                        <span>Outils</span>
-                    </a>
-                </li>
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link active d-flex flex-column align-items-center" aria-current="page">
+                <i class="fa-solid fa-house"></i>
+                <span>Accueil</span>
+                </a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link d-flex flex-column align-items-center">
+                <i class="fa-solid fa-users"></i>
+                <span>Tiers</span>
+                </a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link d-flex flex-column align-items-center">
+                <i class="fa-solid fa-cogs"></i>
+                <span>Services</span>
+                </a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link d-flex flex-column align-items-center">
+                <i class="fa-solid fa-store"></i>
+                <span>Commerce</span>
+                </a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link d-flex flex-column align-items-center">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Facturation</span>
+                </a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="#" class="nav-link d-flex flex-column align-items-center">
+                <i class="fa-solid fa-tools"></i>
+                <span>Outils</span>
+                </a>
+            </li>
             </ul>
             <div class="dropdown ms-auto d-flex align-items-center">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>{{ app.user.firstname|capitalize }} {{ app.user.name|capitalize }}</strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>{{ app.user.firstname|capitalize }} {{ app.user.name|capitalize }}</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
             </div>
             </header>
         </div>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+        <div class="d-flex" style="margin-top: 60px;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100" style="position: fixed;">
             {% include 'panel/_lateral_panel.html.twig' %}
-
+            </div>
+            <div style="padding:10px;margin-left:300px;" class="flex-grow-1">
+            {% block body %}
+            {% endblock %}
+            </div>
         </div>
-        
-        {% block body %}
-        {% endblock %}
     </body>
 </html>
