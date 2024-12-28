@@ -62,7 +62,7 @@ class User
     {
         $session = $this->requestStack->getSession();
         $userPermissions = explode(";",$user->getPermissions());
-        if(in_array($permission,$userPermissions))
+        if(in_array($permission,$userPermissions) || in_array("ROLE_ADMIN",$user->getRoles()))
         {
             return true;
         }

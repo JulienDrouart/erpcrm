@@ -31,7 +31,7 @@
     </a>
     {% if app.request.uri matches "/user/" %}
         <ul class="nav flex-column ms-3">
-            {% if 'USER_CONSULT' in app.user.permissions %}
+            {% if 'USER_CONSULT' in app.user.permissions or 'ROLE_ADMIN' in app.user.roles %}
                 <li class="nav-item">
                     <a href="{{ path('app_user_list') }}" class="nav-link text-white">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person"></use></svg>
@@ -39,7 +39,7 @@
                     </a>
                 </li>
             {% endif %}
-            {% if 'USER_CREATE_UPDATE' in app.user.permissions %}
+            {% if 'USER_CREATE_UPDATE' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
                 <li class="nav-item">
                     <a href="{{ path('app_user_new') }}" class="nav-link text-white">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
@@ -47,7 +47,7 @@
                     </a>
                 </li>
             {% endif %}
-            {% if 'USER_CONSULT' in app.user.permissions %}
+            {% if 'USER_CONSULT' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
                 <li class="nav-item">
                     <a href="{{ path('app_user_hierarchical_view') }}" class="nav-link text-white">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
