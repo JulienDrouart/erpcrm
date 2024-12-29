@@ -17,6 +17,7 @@
             <th>Statut</th>
             <th>Sexe</th>
             <th>Employé</th>
+            <th>Supérieur</th>
             <th>Permissions</th>
             <th>Dernière Connexion</th>
             <th>Actions</th>
@@ -39,6 +40,11 @@
             <td><span class="badge text-bg-{{ user.status == 0  ? 'danger' : 'success'}}"> {{ user.status == 0  ? 'Désactivé' : 'Activé'}}</span></td>
             <td>{{ user.sex == 0 ? 'H' : 'F' }}</td>
             <td>{{ user.employee ? 'Oui' : 'Non' }}</td>
+            <td>
+                {% if user.responsible %}
+                    <a href="{{ path('app_user_show', {'id': user.responsible.id}) }}">{{ user.responsible.firstName|capitalize ~ " " ~ user.responsible.name|capitalize }}</a>
+                {% endif %}
+            </td>
             <td>{{ (user.permissions|split(";"))|length }}</td>
             <td>{{ user.lastConnection ? user.lastConnection|date('d/m/Y H:i:s') : 'N/A' }}</td>
             <td>

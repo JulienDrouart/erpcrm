@@ -2,6 +2,11 @@
   <li class="nav-item">
     <a class="nav-link {% if app.request.attributes.get('_route') == 'app_user_show' %}active{% endif %}" aria-current="page" href="{{ path('app_user_show', { 'id': user.id } ) }}"> Informations</a>
   </li>
+  {% if 'USER_CREATE_UPDATE' in user.permissions or 'ROLE_ADMIN' in app.user.roles %}
+    <li class="nav-item">
+      <a class="nav-link {% if app.request.attributes.get('_route') == 'app_user_edit' %}active{% endif %}" href="{{ path('app_user_edit', { 'id': user.id } ) }}">Modifier </a>
+    </li>
+  {% endif %}
   {% if 'USER_PERMISSIONS' in user.permissions or 'ROLE_ADMIN' in app.user.roles %}
     <li class="nav-item">
       <a class="nav-link {% if app.request.attributes.get('_route') == 'app_user_permissions' %}active{% endif %}" href="{{ path('app_user_permissions', { 'id': user.id } ) }}">Permissions {% if 'ROLE_ADMIN' in user.roles %} <i class="fas fa-star" style="color:#d1b000;"></i> {% else %}<span class="badge text-bg-success">{{ (user.permissions|split(";"))|length }}</span>{% endif %}</a>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Utilisateur{% endblock %}
 
 {% block body %}
     {{ include('user/_header_user.html.twig') }}
@@ -16,23 +16,19 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <th>Rôles</th>
+                <td>{{ user.roles.0|replace({'ROLE_': ''}) }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
+                <th>Prénom</th>
+                <td>{{ user.firstName|capitalize }}</td>
             </tr>
             <tr>
-                <th>FirstName</th>
-                <td>{{ user.firstName }}</td>
+                <th>Nom</th>
+                <td>{{ user.name|capitalize }}</td>
             </tr>
             <tr>
-                <th>Name</th>
-                <td>{{ user.name }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
+                <th>Téléphone</th>
                 <td>{{ user.phone }}</td>
             </tr>
             <tr>
@@ -40,20 +36,16 @@
                 <td>{{ user.type }}</td>
             </tr>
             <tr>
-                <th>Status</th>
-                <td>{{ user.status }}</td>
+                <th>Statut</th>
+                <td><span class="badge text-bg-{{ user.status == 0  ? 'danger' : 'success'}}"> {{ user.status == 0  ? 'Désactivé' : 'Activé'}}</span></td>
             </tr>
             <tr>
-                <th>Sex</th>
-                <td>{{ user.sex ? 'Yes' : 'No' }}</td>
+                <th>Sexe</th>
+                <td>{{ user.sex ? 'Femme' : 'Homme' }}</td>
             </tr>
             <tr>
-                <th>Employee</th>
-                <td>{{ user.employee ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Permissions</th>
-                <td>{{ user.permissions }}</td>
+                <th>Employé</th>
+                <td>{{ user.employee ? 'Oui' : 'Non' }}</td>
             </tr>
         </tbody>
     </table>

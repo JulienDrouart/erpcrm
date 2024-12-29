@@ -67,6 +67,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastConnection = null;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'users')]
+    private ?self $responsible = null;
+
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'responsible')]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -271,6 +285,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastConnection(?\DateTimeInterface $lastConnection): static
     {
         $this->lastConnection = $lastConnection;
+
+        return $this;
+    }
+
+    public function getResponsible(): ?self
+    {
+        return $this->responsible;
+    }
+
+    public function setResponsible(?self $responsible): static
+    {
+        $this->responsible = $responsible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(self $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->setResponsible($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(self $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getResponsible() === $this) {
+                $user->setResponsible(null);
+            }
+        }
 
         return $this;
     }

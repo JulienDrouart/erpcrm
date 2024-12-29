@@ -92,7 +92,7 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, []);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -156,7 +156,9 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_index');
         }
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'current_user_id' => $user->getId(),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
