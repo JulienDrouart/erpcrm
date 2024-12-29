@@ -11,6 +11,15 @@ class SecurityController extends AbstractController
 {
 
     
+    /**
+     * Handles the login process.
+     *
+     * @Route(path="/login", name="app_login")
+     *
+     * @param AuthenticationUtils $authenticationUtils Utility to get authentication-related data.
+     *
+     * @return Response The rendered login page.
+     */
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -26,6 +35,14 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route(path="/logout", name="app_logout")
+     *
+     * This method handles the logout functionality.
+     * It can be left blank as it will be intercepted by the logout key on your firewall.
+     *
+     * @throws \LogicException
+     */
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {

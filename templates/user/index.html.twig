@@ -39,7 +39,7 @@
             <td><span class="badge text-bg-{{ user.status == 0  ? 'danger' : 'success'}}"> {{ user.status == 0  ? 'Désactivé' : 'Activé'}}</span></td>
             <td>{{ user.sex == 0 ? 'H' : 'F' }}</td>
             <td>{{ user.employee ? 'Oui' : 'Non' }}</td>
-            <td>{{ user.permissions }}</td>
+            <td>{{ (user.permissions|split(";"))|length }}</td>
             <td>{{ user.lastConnection ? user.lastConnection|date('d/m/Y H:i:s') : 'N/A' }}</td>
             <td>
             </td>
