@@ -10,9 +10,19 @@ a{
     color: rgba(25, 135, 84, 1) !important;
 }
 
+.inverted-green-white{
+    background-color:#ffffff !important;
+    color:rgba(25, 135, 84, 1) !important;
+}
+
 .nav-link.active{
     background-color: rgba(25, 135, 84, 1) !important;
     color: white !important;
+}
+
+.form-check-input:checked {
+    background-color: rgba(25, 135, 84, 1) !important;
+    border-color: rgba(25, 135, 84, 1) !important;
 }
 
 

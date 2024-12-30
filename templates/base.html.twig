@@ -10,8 +10,9 @@
         {% block stylesheets %}
         {% endblock %}
 
-        {% block javascripts %}
+        {% block javascriptInitial %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {% block javascripts %}{% endblock %}
         {% endblock %}
     </head>
     <body>
