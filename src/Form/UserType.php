@@ -19,8 +19,8 @@ class UserType extends AbstractType
             ])
             ->add('roles', ChoiceType::class, [
             'choices' => [
-            'Admin' => 'ROLE_ADMIN',
-            'Utilisateur' => 'ROLE_USER',
+                'Admin' => 'ROLE_ADMIN',
+                'Utilisateur' => 'ROLE_USER',
             ],
             'multiple' => true,
             'expanded' => false,
@@ -43,24 +43,24 @@ class UserType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
             'choices' => [
-            'Activé' => 0,
-            'Désactivé' => 1,
+                'Activé' => 0,
+                'Désactivé' => 1,
             ],
             'expanded' => false,
             'label' => 'Statut'
             ])
             ->add('sex', ChoiceType::class, [
             'choices' => [
-            'Homme' => 0,
-            'Femme' => 1,
+                'Homme' => 0,
+                'Femme' => 1,
             ],
             'expanded' => false,
             'label' => 'Sexe'
             ])
             ->add('employee', ChoiceType::class, [
             'choices' => [
-            'Non' => 0,
-            'Oui' => 1,
+                'Non' => 0,
+                'Oui' => 1,
             ],
             'expanded' => false,
             'label' => 'Employé'
@@ -68,15 +68,16 @@ class UserType extends AbstractType
             ->add('responsible', EntityType::class, [
             'class' => User::class,
             'choice_label' => function (User $user) {
-            return $user->getFirstName() . ' ' . $user->getName();
+                return $user->getFirstName() . ' ' . $user->getName();
             },
             'query_builder' => function (\Doctrine\ORM\EntityRepository $er) use ($options) {
-            return $er->createQueryBuilder('u')
+                return $er->createQueryBuilder('u')
                 ->where('u.id != :current_user_id')
                 ->setParameter('current_user_id', $options['current_user_id']);
             },
+            'required' => false,
             'label' => 'Responsable'
-            ])
+            ]);
         ;
     }
 

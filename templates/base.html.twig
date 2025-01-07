@@ -24,7 +24,7 @@
             <span class="fs-4">ERPCRM</span>
             </a>
             <li class="nav-item me-3">
-                <a href="#" class="nav-link link-white active d-flex flex-column align-items-center" aria-current="page">
+                <a href="{{ path('app_index') }}" class="nav-link link-white {% if app.request.attributes.get('_route') == 'app_index' or app.request.uri matches "/user/" %}active{% endif %} d-flex flex-column align-items-center" aria-current="page">
                 <i class="fa-solid fa-house"></i>
                 <span>Accueil</span>
                 </a>
@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li class="nav-item me-3">
-                <a href="#" class="nav-link link-white d-flex flex-column align-items-center">
+                <a href="{{ path('app_services_index') }}" class="nav-link link-white {% if app.request.uri matches "/services/" %}active{% endif %} d-flex flex-column align-items-center">
                 <i class="fa-solid fa-cogs"></i>
                 <span>Services</span>
                 </a>

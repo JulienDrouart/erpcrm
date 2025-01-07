@@ -5,57 +5,110 @@
 </div>
 </form>
 <ul class="nav nav-pills flex-column mb-auto">
-<li class="nav-item">
-    <a href="{{ path('app_index') }}" class="nav-link text-white {% if app.request.attributes.get('_route') == 'app_index' %} active {% endif %}" aria-current="page">
-    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-    <i class="fas fa-tachometer-alt" style="padding-right:10px;"></i>Mon tableau de bord
-    
-    </a>
-</li><hr>
-<li>
-    <a href="#" class="nav-link text-white">
-    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-    <i class="fas fa-cogs" style="padding-right:10px;"></i>Configuration
-    </a>
-</li><hr>
-<li>
-    <a href="#" class="nav-link text-white">
-    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-    <i class="fas fa-tools" style="padding-right:10px;"></i>Outils d'administration
-    </a>
-</li><hr>
-<li>
-    <a href="{{ path('app_user_index') }}" class="nav-link text-white {% if app.request.uri matches "/user/" %} active {% endif %}">
-    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-    <i class="fas fa-user" style="padding-right:10px;"></i>Utilisateurs 
-    </a>
-    {% if app.request.uri matches "/user/" %}
-        <ul class="nav flex-column ms-3">
-            {% if 'USER_CONSULT' in app.user.permissions or 'ROLE_ADMIN' in app.user.roles %}
-                <li class="nav-item">
-                    <a href="{{ path('app_user_list') }}" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person"></use></svg>
-                        Liste des utilisateurs
-                    </a>
-                </li>
+    {% if app.request.uri matches "/services/" %}
+        <li>
+            <a href="{{ path('app_user_index') }}" class="nav-link text-white {% if app.request.uri matches "/services/" %} active {% endif %}">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            <i class="fas fa-user" style="padding-right:10px;"></i>Services 
+            </a>
+            <ul class="nav flex-column ms-3">
+                {% if 'USER_CONSULT' in app.user.permissions or 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_services_index') }}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person"></use></svg>
+                            Liste des services
+                        </a>
+                    </li>
+                {% endif %}
+                {% if 'USER_CREATE_UPDATE' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_services_new') }}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                            Nouveau service
+                        </a>
+                    </li>
+                {% endif %}
+                {% if 'USER_CONSULT' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_services_new') }}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                            Vue hiérarchique
+                        </a>
+                    </li>
+                {% endif %}
+                {% if 'USER_CONSULT' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_services_new') }}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                            Statistiques
+                        </a>
+                    </li>
+                {% endif %}
+                {% if 'USER_CONSULT' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_services_new') }}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                            Tags
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </li>
+
+    {% elseif app.request.uri matches "/user/" or app.request.attributes.get('_route') == 'app_index' %}
+        <li class="nav-item">
+            <a href="{{ path('app_index') }}" class="nav-link text-white {% if app.request.attributes.get('_route') == 'app_index' %} active {% endif %}" aria-current="page">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+            <i class="fas fa-tachometer-alt" style="padding-right:10px;"></i>Mon tableau de bord
+            
+            </a>
+        </li><hr>
+        <li>
+            <a href="#" class="nav-link text-white">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+            <i class="fas fa-cogs" style="padding-right:10px;"></i>Configuration
+            </a>
+        </li><hr>
+        <li>
+            <a href="#" class="nav-link text-white">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+            <i class="fas fa-tools" style="padding-right:10px;"></i>Outils d'administration
+            </a>
+        </li><hr>
+        <li>
+            <a href="{{ path('app_user_index') }}" class="nav-link text-white {% if app.request.uri matches "/user/" %} active {% endif %}">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            <i class="fas fa-user" style="padding-right:10px;"></i>Utilisateurs 
+            </a>
+            {% if app.request.uri matches "/user/" %}
+                <ul class="nav flex-column ms-3">
+                    {% if 'USER_CONSULT' in app.user.permissions or 'ROLE_ADMIN' in app.user.roles %}
+                        <li class="nav-item">
+                            <a href="{{ path('app_user_list') }}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person"></use></svg>
+                                Liste des utilisateurs
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if 'USER_CREATE_UPDATE' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
+                        <li class="nav-item">
+                            <a href="{{ path('app_user_new') }}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                                Ajouter un utilisateur
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if 'USER_CONSULT' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
+                        <li class="nav-item">
+                            <a href="{{ path('app_user_hierarchical_view') }}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
+                                Vue hiérarchique
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
             {% endif %}
-            {% if 'USER_CREATE_UPDATE' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
-                <li class="nav-item">
-                    <a href="{{ path('app_user_new') }}" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
-                        Ajouter un utilisateur
-                    </a>
-                </li>
-            {% endif %}
-            {% if 'USER_CONSULT' in app.user.permissions  or 'ROLE_ADMIN' in app.user.roles %}
-                <li class="nav-item">
-                    <a href="{{ path('app_user_hierarchical_view') }}" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#person-plus"></use></svg>
-                        Vue hiérarchique
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
+        </li>
     {% endif %}
-</li>
+    
 </ul>

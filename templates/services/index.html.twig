@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services index{% endblock %}
+
+{% block body %}
+    <h1>Services index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ref</th>
+                <th>Label</th>
+                <th>State</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <th>DurationUnit</th>
+                <th>Note</th>
+                <th>Tags</th>
+                <th>Price</th>
+                <th>Vat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td>{{ service.id }}</td>
+                <td>{{ service.ref }}</td>
+                <td>{{ service.label }}</td>
+                <td>{{ service.state ? 'Yes' : 'No' }}</td>
+                <td>{{ service.description }}</td>
+                <td>{{ service.duration }}</td>
+                <td>{{ service.durationUnit }}</td>
+                <td>{{ service.note }}</td>
+                <td>{{ service.tags }}</td>
+                <td>{{ service.price }}</td>
+                <td>{{ service.vat }}</td>
+                <td>
+                    <a href="{{ path('app_services_show', {'id': service.id}) }}">show</a>
+                    <a href="{{ path('app_services_edit', {'id': service.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_services_new') }}">Create new</a>
+{% endblock %}
