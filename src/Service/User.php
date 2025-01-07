@@ -73,6 +73,14 @@ class User
             array(
                 "slug" => "SERVICE_EXPORT",
                 "label" => "Exporter les services"
+            ),
+            array(
+                "slug" => "SERVICE_STATS",
+                "label" => "Consulter les statistiques sur les services"
+            ),
+            array(
+                "slug" => "SERVICE_TAGS",
+                "label" => "Gérer les tags"
             )
             ),
             "Tiers" => array(
